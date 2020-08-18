@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import * as Yup from 'yup';
 
+import Input from './Input';
+
 function Form() {
 
   const defaultState = {
@@ -62,7 +64,7 @@ function Form() {
       <form>
         <label htmlFor="name">
           Name:&#160;
-          <input
+          <Input
             id="name"
             type="text"
             onChange={inputChange}
@@ -74,7 +76,7 @@ function Form() {
 
         <label htmlFor="email">
           Email:&#160;
-          <input
+          <Input
             id="email"
             type="email"
             onChange={inputChange}
@@ -86,7 +88,7 @@ function Form() {
 
         <label htmlFor="password">
           Password:&#160;
-          <input
+          <Input
             id="password"
             type="password"
             onChange={inputChange}
@@ -109,11 +111,11 @@ function Form() {
 
         <label htmlFor="checkbox">
           Terms of Service:&#160;
-          <input
+          <Input
             id="checkbox"
             type="checkbox"
-            onChange={null}
-            value={null}
+            onChange={inputChange}
+            value={formState.checkbox}
             label="checkbox"
           />
         </label>

@@ -45,6 +45,7 @@ Form validation is one of the facets of an application that makes it feel polish
       - e.persist
       - setSchemaState
       - add to onChange function
+    - [x] input error component
 
 3. #### Make a POST Request
 
