@@ -34,6 +34,12 @@ Form validation is one of the facets of an application that makes it feel polish
 
 - [ ] Using Yup, set up _at least_ two different validations along with custom error messages that will display on screen when validation fails.
 
+  - [x] create formState
+    - [x] create inputChange that manipulates state based on input values (passed as computed properties)
+    - [x] pass onChange={inputChange} and value={formState.name}
+  - [] import yup
+    - [] build schema
+
 3. #### Make a POST Request
 
 Being able to `POST` data is a key skill of any developer, no matter your skill level.
