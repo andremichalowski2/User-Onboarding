@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as Yup from 'yup';
 
 function Form() {
 
@@ -10,7 +11,12 @@ function Form() {
     terms: false
   };
 
+  //formState for inputs etc.
   const[formState, setFormState] = useState(defaultState);
+  //errorsState for validation
+  const [errors, setErrors] = useState({ ...defaultState, terms: ""})
+  //buttonDisabledState for button enableing after validation
+
 
   const inputChange = e => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -18,7 +24,38 @@ function Form() {
       ...formState,
       [e.target.name]: value
     });
+    validateChange(e);
   }
+
+  const formSchema = Yup.object().shape({
+    name: Yup
+      .string()
+      .email("Must be a valid email address.")
+      .required("Must include an email address."),
+    email: Yup
+      .string()
+      .email("Must be a valid email address.")
+      .required("Must include an email address."),
+    password: Yup
+      .string()
+      // .password("Must be a valid password.")
+      .min(6, "Must be a minimum of 6 characters.")
+      .max(6, "Must be a maximum of 6 characters.")
+      .required("Must include a password."),
+    terms: Yup
+      .boolean()
+      .oneOf([true], "You must accept Terms and Conditions")
+  });
+
+  const validateChange = e => {
+    e.persist();
+    if (e.target.value.length === 0) {
+      setErrors({
+        ...errors,
+        [e.target.name]: `${e.target.name} field is required`
+      });
+    }
+  };
 
   return (
     <div className="form">

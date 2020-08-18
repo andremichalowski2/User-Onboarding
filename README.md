@@ -32,13 +32,19 @@ We want to create a form to onboard a new user to our system. We need _at least_
 
 Form validation is one of the facets of an application that makes it feel polished and controlled from a user perspective. With that in mind, implement the following:
 
-- [ ] Using Yup, set up _at least_ two different validations along with custom error messages that will display on screen when validation fails.
+- [x] Using Yup, set up _at least_ two different validations along with custom error messages that will display on screen when validation fails.
 
   - [x] create formState
     - [x] create inputChange that manipulates state based on input values (passed as computed properties)
     - [x] pass onChange={inputChange} and value={formState.name}
-  - [] import yup
-    - [] build schema
+  - [x] import yup
+    - [x] build schema
+      - create state for schema
+      - actually create schema
+    - [x] validate change function
+      - e.persist
+      - setSchemaState
+      - add to onChange function
 
 3. #### Make a POST Request
 
