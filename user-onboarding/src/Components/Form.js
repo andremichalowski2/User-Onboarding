@@ -1,106 +1,129 @@
-import React, { useState } from "react";
-import * as Yup from 'yup';
+import React, { useState, useEffect } from "react";
+import * as Yup from "yup";
+import axios from "axios";
 
-import Input from './Input';
+import Input from "./Input";
 
 function Form() {
-
   const defaultState = {
     name: "",
     email: "",
     password: "",
     position: "",
-    terms: false
+    terms: false,
   };
 
   //formState for inputs etc.
-  const[formState, setFormState] = useState(defaultState);
+  const [formState, setFormState] = useState(defaultState);
   //errorsState for validation
-  const [errors, setErrors] = useState({ ...defaultState, terms: ""})
+  const [errors, setErrors] = useState({ ...defaultState, terms: "" });
   //buttonDisabledState for button enableing after validation
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  
 
-
-  const inputChange = e => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+  const inputChange = (e) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setFormState({
       ...formState,
-      [e.target.name]: value
+      [e.target.name]: value,
     });
     validateChange(e);
-  }
+  };
 
   const formSchema = Yup.object().shape({
-    name: Yup
-      .string()
+    name: Yup.string()
       .email("Must be a valid email address.")
       .required("Must include an email address."),
-    email: Yup
-      .string()
+    email: Yup.string()
       .email("Must be a valid email address.")
       .required("Must include an email address."),
-    password: Yup
-      .string()
+    password: Yup.string()
       // .password("Must be a valid password.")
       .min(6, "Must be a minimum of 6 characters.")
-      .max(6, "Must be a maximum of 6 characters.")
+      .max(10, "Must be a maximum of 10 characters.")
       .required("Must include a password."),
-    terms: Yup
-      .boolean()
-      .oneOf([true], "You must accept Terms and Conditions")
+    terms: Yup.boolean().oneOf([true], "You must accept Terms and Conditions"),
   });
 
-  const validateChange = e => {
+  const validateChange = (e) => {
     e.persist();
     if (e.target.value.length === 0) {
       setErrors({
         ...errors,
-        [e.target.name]: `${e.target.name} field is required`
+        [e.target.name]: `${e.target.name} field is required`,
       });
     }
   };
 
+  useEffect(() => {
+    // formSchema.isValid(formState).then(valid => setButtonDisabled(!valid));
+    if (formState.terms) {
+      setButtonDisabled(!formState.terms);
+    }
+  }, [formState]);
+
+  const formSubmit = (e) => {
+    e.preventDefault();
+    console.log("form submitted!");
+    axios
+      .post("https://reqres.in/api/users", formState)
+      .then(() => console.log("form submitted success"))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="form">
-      <form>
+      <form onSubmit={formSubmit}>
         <label htmlFor="name">
           Name:&#160;
           <Input
-            id="name"
+            // id="name"
             type="text"
+            name="name"
             onChange={inputChange}
             value={formState.name}
-            label="name"
+            // label="Name"
             placeholder="Jane Doe"
+            errors={errors}
           />
         </label>
 
         <label htmlFor="email">
           Email:&#160;
           <Input
-            id="email"
+            // id="email"
             type="email"
+            name="email"
             onChange={inputChange}
             value={formState.email}
-            label="email"
+            // label="Email"
             placeholder="jane.doe@gmail.com"
+            errors={errors}
           />
         </label>
 
         <label htmlFor="password">
           Password:&#160;
           <Input
-            id="password"
+            // id="password"
             type="password"
+            name="password"
             onChange={inputChange}
             value={formState.password}
-            label="password"
+            // label="Password"
             placeholder="jDPwrD345*"
+            errors={errors}
           />
         </label>
 
         <label htmlFor="position">
           Position:&#160;
-          <select name="position" onChange={inputChange} value={formState.position}>
+          <select
+            name="position"
+            onChange={inputChange}
+            value={formState.position}
+          >
             <option value="null">Select</option>
             <option value="Team Lead">Team Lead</option>
             <option value="Section Lead">Section Lead</option>
@@ -109,21 +132,21 @@ function Form() {
           </select>
         </label>
 
-        <label htmlFor="checkbox">
+        <label htmlFor="terms">
           Terms of Service:&#160;
           <Input
-            id="checkbox"
+            // id="checkbox"
+            name="terms"
             type="checkbox"
             onChange={inputChange}
-            value={formState.checkbox}
-            label="checkbox"
+            // label="checkbox"
+            errors={errors}
           />
         </label>
 
         <br />
 
-        <button onChange={null}>Submit</button>
-
+        <button onChange={setButtonDisabled}>Submit</button>
       </form>
     </div>
   );

@@ -1,7 +1,8 @@
 import React from 'react';
 
-function Input (props) {
-  const errorMessage = props.error[props.name];
+function Input ( props ) {
+  const errorMessage = props.errors[props.name];
+  console.log(props);
   return (
     <label htmlFor="name">
       {props.label}
