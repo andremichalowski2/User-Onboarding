@@ -9,7 +9,7 @@ function Form() {
     name: "",
     email: "",
     password: "",
-    position: "",
+    role: "",
     terms: false,
   };
 
@@ -122,10 +122,10 @@ function Form() {
           />
         </label>
 
-        <label htmlFor="position">
-          Position:&#160;
+        <label htmlFor="role">
+          Role:&#160;
           <select
-            name="position"
+            name="role"
             onChange={inputChange}
             value={formState.position}
           >
