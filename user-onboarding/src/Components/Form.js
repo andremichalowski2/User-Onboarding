@@ -19,6 +19,9 @@ function Form() {
   const [errors, setErrors] = useState({ ...defaultState, terms: "" });
   //buttonDisabledState for button enableing after validation
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  //2a.4 Display Data
+  const [users, setUsers] = useState([]);
+
   
 
   const inputChange = (e) => {
@@ -69,9 +72,11 @@ function Form() {
     axios
       .post("https://reqres.in/api/users", formState)
       .then(() => console.log("form submitted success"))
+      // .then(() => setUsers(formState))
       .catch((err) => console.log(err));
   };
 
+  console.log(users)
   return (
     <div className="form">
       <form onSubmit={formSubmit}>
