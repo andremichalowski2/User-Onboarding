@@ -22,8 +22,6 @@ function Form() {
   //2a.4 Display Data
   const [users, setUsers] = useState([]);
 
-  
-
   const inputChange = (e) => {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -60,7 +58,7 @@ function Form() {
   };
 
   useEffect(() => {
-    // formSchema.isValid(formState).then(valid => setButtonDisabled(!valid));
+    formSchema.isValid(formState).then((valid) => setButtonDisabled(!valid));
     if (formState.terms) {
       setButtonDisabled(!formState.terms);
     }
@@ -76,7 +74,7 @@ function Form() {
       .catch((err) => console.log(err));
   };
 
-  console.log(users)
+  console.log(users);
   return (
     <div className="form">
       <form onSubmit={formSubmit}>
@@ -124,11 +122,7 @@ function Form() {
 
         <label htmlFor="role">
           Role:&#160;
-          <select
-            name="role"
-            onChange={inputChange}
-            value={formState.position}
-          >
+          <select name="role" onChange={inputChange} value={formState.position}>
             <option value="null">Select</option>
             <option value="Team Lead">Team Lead</option>
             <option value="Section Lead">Section Lead</option>
