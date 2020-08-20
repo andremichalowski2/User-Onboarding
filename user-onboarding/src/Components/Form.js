@@ -84,6 +84,7 @@ function Form() {
             // id="name"
             type="text"
             name="name"
+            data-cy="name"
             onChange={inputChange}
             value={formState.name}
             // label="Name"
@@ -98,6 +99,7 @@ function Form() {
             // id="email"
             type="email"
             name="email"
+            data-cy="email"
             onChange={inputChange}
             value={formState.email}
             // label="Email"
@@ -112,6 +114,7 @@ function Form() {
             // id="password"
             type="password"
             name="password"
+            data-cy="password"
             onChange={inputChange}
             value={formState.password}
             // label="Password"
@@ -137,6 +140,7 @@ function Form() {
             // id="checkbox"
             name="terms"
             type="checkbox"
+            data-cy="terms"
             onChange={inputChange}
             // label="checkbox"
             errors={errors}
